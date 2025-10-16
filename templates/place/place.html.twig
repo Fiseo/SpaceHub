@@ -1,0 +1,229 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Venue Hero -->
+    <section class="venue-hero">
+        <div class="container">
+            <div class="venue-hero-content">
+                <nav class="breadcrumb mb-sm">
+                    <a href="index.html">Accueil</a> >
+                    <a href="venues.html">Lieux</a> >
+                    <span>Salle Horizon</span>
+                </nav>
+                <h1 class="venue-title mb-sm">{{ place.name }}</h1>
+                <div class="venue-meta flex items-center gap-md mb-md flex-wrap">
+                    <span class="venue-location">📍 {{ place.address }}</span>
+                    <span class="venue-capacity">👥 {{ place.capacity }}</span>
+                    <div class="venue-rating">
+                        <span class="stars">⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">(4.8 - 24 avis)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Gallery -->
+    <section class="venue-gallery">
+        <div class="container">
+            <div class="gallery-grid">
+                <div class="gallery-main">
+                    <img src="https://picsum.photos/800/400?random=20" alt="Vue principale de la Salle Horizon" class="main-image">
+                </div>
+                <div class="gallery-thumbs">
+                    <img src="https://picsum.photos/200/150?random=21" alt="Vue 2" class="thumb-image">
+                    <img src="https://picsum.photos/200/150?random=22" alt="Vue 3" class="thumb-image">
+                    <img src="https://picsum.photos/200/150?random=23" alt="Vue 4" class="thumb-image">
+                    <img src="https://picsum.photos/200/150?random=24" alt="Vue 5" class="thumb-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Content -->
+    <section class="venue-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="venue-info">
+                    <div class="info-section mb-xl">
+                        <h2 class="section-title mb-md">Description</h2>
+                        <p class="mb-md">
+                            {{ place.description }}
+                        </p>
+                    </div>
+
+                    <div class="info-section mb-xl">
+                        <h2 class="section-title mb-md">Équipements inclus</h2>
+                        <div class="equipment-grid">
+                            {% for equipement in place.equipements %}
+                            <div class="equipment-item flex items-center gap-sm">
+                                <span class="equipment-icon">{{ equipement.icon}}️</span>
+                                <span>{{ equipement.name }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="info-section mb-xl">
+                        <h2 class="section-title mb-md">Localisation</h2>
+                        <div class="location-info mb-md">
+                            <p class="mb-sm"><strong>Adresse :</strong> 15 Boulevard Haussmann, 75008 Paris</p>
+                            <p class="mb-sm"><strong>Métro :</strong> Opéra (lignes 3, 7, 8), Chaussée d'Antin (lignes 7, 9)</p>
+                            <p class="mb-sm"><strong>Bus :</strong> Lignes 20, 21, 22, 68, 81, 95</p>
+                            <p class="mb-sm"><strong>Parking :</strong> Parking Haussmann Saint-Lazare (5 min à pied)</p>
+                        </div>
+                        <div class="map-placeholder">
+                            <p class="text-center">📍 Carte interactive (Google Maps)</p>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h2 class="section-title mb-md">Avis clients</h2>
+                        <div class="reviews">
+                            <div class="review-item mb-md">
+                                <div class="review-header flex justify-between items-center mb-sm">
+                                    <div class="reviewer-info">
+                                        <span class="reviewer-name">Marie L.</span>
+                                        <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                                    </div>
+                                    <span class="review-date">Il y a 2 semaines</span>
+                                </div>
+                                <p>"Excellente salle pour notre séminaire annuel. Équipements de qualité et service irréprochable."</p>
+                            </div>
+
+                            <div class="review-item mb-md">
+                                <div class="review-header flex justify-between items-center mb-sm">
+                                    <div class="reviewer-info">
+                                        <span class="reviewer-name">Jean-Pierre M.</span>
+                                        <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                                    </div>
+                                    <span class="review-date">Il y a 1 mois</span>
+                                </div>
+                                <p>"Très bien situé, facile d'accès. La salle est moderne et parfaitement équipée."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="booking-sidebar">
+                    <div class="booking-card bg-white p-lg border-radius shadow">
+                        <div class="price-section mb-lg">
+                            <div class="price-display">
+                                <span class="price">250€</span>
+                                <span class="price-unit">/ jour</span>
+                            </div>
+                            <p class="price-note">Tarifs dégressifs pour plusieurs jours</p>
+                        </div>
+
+                        <form class="booking-form">
+                            <div class="form-group mb-md">
+                                <label for="start_date" class="mb-sm">Date de début</label>
+                                <input type="date" id="start_date" name="start_date" class="form-input w-full" required>
+                            </div>
+
+                            <div class="form-group mb-md">
+                                <label for="end_date" class="mb-sm">Date de fin</label>
+                                <input type="date" id="end_date" name="end_date" class="form-input w-full" required>
+                            </div>
+
+                            <div class="form-group mb-md">
+                                <label for="guests" class="mb-sm">Nombre d'invités</label>
+                                <select id="guests" name="guests" class="form-input w-full" required>
+                                    <option value="">Sélectionner</option>
+                                    <option value="1-25">1 - 25 personnes</option>
+                                    <option value="26-50">26 - 50 personnes</option>
+                                    <option value="51-100">51 - 100 personnes</option>
+                                    <option value="101-150">101 - 150 personnes</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-lg">
+                                <label for="event_type" class="mb-sm">Type d'événement</label>
+                                <select id="event_type" name="event_type" class="form-input w-full" required>
+                                    <option value="">Sélectionner</option>
+                                    <option value="conference">Conférence</option>
+                                    <option value="seminar">Séminaire</option>
+                                    <option value="training">Formation</option>
+                                    <option value="meeting">Réunion</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+
+                            <div class="price-summary mb-lg">
+                                <div class="price-line flex justify-between">
+                                    <span>1 jour x 250€</span>
+                                    <span>250€</span>
+                                </div>
+                                <div class="price-line flex justify-between">
+                                    <span>Frais de service</span>
+                                    <span>25€</span>
+                                </div>
+                                <hr class="price-divider">
+                                <div class="price-total flex justify-between">
+                                    <strong>Total</strong>
+                                    <strong>275€</strong>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-full mb-sm">Réserver maintenant</button>
+                            <p class="booking-note text-center">Vous ne serez pas débité maintenant</p>
+                        </form>
+
+                        <div class="contact-owner mt-lg">
+                            <h3 class="mb-sm">Questions ?</h3>
+                            <p class="mb-md">Contactez le propriétaire pour plus d'informations</p>
+                            <button class="btn btn-outline w-full">Envoyer un message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Similar Venues -->
+    <section class="similar-venues">
+        <div class="container">
+            <h2 class="section-title text-center mb-xl">Lieux similaires</h2>
+            <div class="venues-grid">
+                <div class="venue-card">
+                    <div class="venue-image">
+                        <img src="https://picsum.photos/400/200?random=25" alt="Studio Lumière">
+                    </div>
+                    <div class="venue-info">
+                        <h3>Studio Lumière</h3>
+                        <p class="venue-location">Lyon 2ème</p>
+                        <p class="venue-capacity">Jusqu'à 50 personnes</p>
+                        <p class="venue-price">À partir de 120€/jour</p>
+                        <a href="venue-detail.html" class="btn btn-outline btn-sm">Voir détails</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image">
+                        <img src="https://picsum.photos/400/200?random=26" alt="Campus Innovation">
+                    </div>
+                    <div class="venue-info">
+                        <h3>Campus Innovation</h3>
+                        <p class="venue-location">Bordeaux centre</p>
+                        <p class="venue-capacity">Jusqu'à 80 personnes</p>
+                        <p class="venue-price">À partir de 180€/jour</p>
+                        <a href="venue-detail.html" class="btn btn-outline btn-sm">Voir détails</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image">
+                        <img src="https://picsum.photos/400/200?random=27" alt="Espace Créatif">
+                    </div>
+                    <div class="venue-info">
+                        <h3>Espace Créatif</h3>
+                        <p class="venue-location">Paris 11ème</p>
+                        <p class="venue-capacity">Jusqu'à 40 personnes</p>
+                        <p class="venue-price">À partir de 90€/jour</p>
+                        <a href="venue-detail.html" class="btn btn-outline btn-sm">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
