@@ -1,0 +1,15 @@
+<div class="venues-grid">
+    {% for place in places %}
+        <div class="card">
+            <img src="https://picsum.photos/400/200?random=1" alt="Salle de conférence moderne" class="card-img card-img-top">
+            <div class="card-body">
+                <h3 class="card-title">{{ place.name }}</h3>
+                <p class="card-text venue-location">{{ place.address }}</p>
+                <p class="card-text venue-capacity">Jusqu'à {{ place.capacity }} personnes</p>
+                <p class="venue-price">À partir de 250€/jour</p>
+                <a href="{{ path('app_place_show', {'slug': place.slug}) }}" class="btn btn-outline btn-sm">Voir détails</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+

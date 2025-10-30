@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\EquipementRepository;
+use App\Repository\EquipmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EquipementRepository::class)]
-class Equipement
+#[ORM\Entity(repositoryClass: EquipmentRepository::class)]
+class Equipment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,7 +24,7 @@ class Equipement
     /**
      * @var Collection<int, Place>
      */
-    #[ORM\ManyToMany(targetEntity: Place::class, mappedBy: 'equipements')]
+    #[ORM\ManyToMany(targetEntity: Place::class, mappedBy: 'equipments')]
     private Collection $places;
 
     public function __construct()
@@ -73,7 +73,7 @@ class Equipement
     {
         if (!$this->places->contains($place)) {
             $this->places->add($place);
-            $place->addEquipement($this);
+            $place->addEquipment($this);
         }
 
         return $this;
@@ -82,7 +82,7 @@ class Equipement
     public function removePlace(Place $place): static
     {
         if ($this->places->removeElement($place)) {
-            $place->removeEquipement($this);
+            $place->removeEquipment($this);
         }
 
         return $this;

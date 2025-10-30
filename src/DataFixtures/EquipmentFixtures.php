@@ -2,73 +2,73 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Equipement;
+use App\Entity\Equipment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class EquipementFixtures extends Fixture
+class EquipmentFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $wifi = new Equipement();
+        $wifi = new Equipment();
         $wifi->setName('Wi-Fi');
         $wifi->setIcon('🛜');
         $manager->persist($wifi);
-        $this->addReference('equipement_wifi', $wifi);
+        $this->addReference('Equipment_wifi', $wifi);
 
-        $parking = new Equipement();
+        $parking = new Equipment();
         $parking->setName('Parking privé');
         $parking->setIcon('🚗');
         $manager->persist($parking);
-        $this->addReference('equipement_parking', $parking);
+        $this->addReference('Equipment_parking', $parking);
 
-        $cinema = new Equipement();
+        $cinema = new Equipment();
         $cinema->setName('Salle de cinéma');
         $cinema->setIcon('🎞️');
         $manager->persist($cinema);
-        $this->addReference('equipement_cinema', $cinema);
+        $this->addReference('Equipment_cinema', $cinema);
 
-        $cuisine = new Equipement();
+        $cuisine = new Equipment();
         $cuisine->setName('Cuisine équipée');
         $cuisine->setIcon('🧑‍🍳');
         $manager->persist($cuisine);
-        $this->addReference('equipement_cuisine', $cuisine);
+        $this->addReference('Equipment_cuisine', $cuisine);
 
-        $barbecue = new Equipement();
+        $barbecue = new Equipment();
         $barbecue->setName('Barbecue');
         $barbecue->setIcon('🔥');
         $manager->persist($barbecue);
-        $this->addReference('equipement_barbecue', $barbecue);
+        $this->addReference('Equipment_barbecue', $barbecue);
 
-        $animaux = new Equipement();
+        $animaux = new Equipment();
         $animaux->setName('Animaux autorisés');
         $animaux->setIcon('🐶');
         $manager->persist($animaux);
-        $this->addReference('equipement_animaux', $animaux);
+        $this->addReference('Equipment_animaux', $animaux);
 
-        $handicap = new Equipement();
+        $handicap = new Equipment();
         $handicap->setName('Accès handicapé');
         $handicap->setIcon('👨‍🦽');
         $manager->persist($handicap);
-        $this->addReference('equipement_handicap', $handicap);
+        $this->addReference('Equipment_handicap', $handicap);
 
-        $pierre = new Equipement();
+        $pierre = new Equipment();
         $pierre->setName('Pierre Jehan invitable');
         $pierre->setIcon('🗿');
         $manager->persist($pierre);
-        $this->addReference('equipement_pierre', $pierre);
+        $this->addReference('Equipment_pierre', $pierre);
 
-        $chauffage = new Equipement();
+        $chauffage = new Equipment();
         $chauffage->setName('Chauffage');
         $chauffage->setIcon('🔥');
         $manager->persist($chauffage);
-        $this->addReference('equipement_chauffage', $chauffage);
+        $this->addReference('Equipment_chauffage', $chauffage);
 
-        $bruit = new Equipement();
+        $bruit = new Equipment();
         $bruit->setName('Nuisance sonore autorisée');
         $bruit->setIcon('🎶');
         $manager->persist($bruit);
-        $this->addReference('equipement_bruit', $bruit);
+        $this->addReference('Equipment_bruit', $bruit);
 
         $manager->flush();
     }

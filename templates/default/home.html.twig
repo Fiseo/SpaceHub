@@ -64,20 +64,9 @@
                 <h2 class="section-title mb-sm">Lieux populaires</h2>
                 <p class="section-description">Découvrez nos espaces les plus demandés</p>
             </div>
-            <div class="venues-grid">
-                {% for place in places %}
-                    <div class="card">
-                        <img src="https://picsum.photos/400/200?random={{ place.id }}" alt="Salle de conférence moderne" class="card-img card-img-top">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ place.name }}</h3>
-                            <p class="card-text venue-location">Paris 8ème</p>
-                            <p class="card-text venue-capacity">Jusqu'à 150 personnes</p>
-                            <p class="venue-price">À partir de 250€/jour</p>
-                            <a href="{{ path('app_place', { 'id': place.id }) }}" class="btn btn-outline btn-sm">Voir détails</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+
+            {% include 'place-grid.html.twig' %}
+            
             <div class="section-actions text-center">
                 <a href="venues.html" class="btn btn-primary">Voir tous les lieux</a>
             </div>

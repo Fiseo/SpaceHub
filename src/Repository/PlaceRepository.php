@@ -16,6 +16,17 @@ class PlaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Place::class);
     }
 
+    public function findWithEquipments(string $slug): ?Place
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->addSelect('e')
+            ->leftJoin('p.equipments', 'e')
+            ->where('p.slug = :slug') // $qb->expr()->eq('p.id', ':id')
+            ->setParameter('slug', $slug);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Place[] Returns an array of Place objects
     //     */

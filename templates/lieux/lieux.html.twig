@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content text-center">
+            <h1 class="page-title mb-sm">Nos Lieux</h1>
+            <p class="page-description">
+                Découvrez notre sélection d'espaces uniques pour tous vos événements
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Filters Section -->
+<section class="filters">
+    <div class="container">
+        <div class="filters-wrapper flex gap-md">
+            <div class="filter-group">
+                <label for="location">Localisation</label>
+                <select id="location" class="filter-select">
+                    <option value="">Toutes les villes</option>
+                    <option value="paris">Paris</option>
+                    <option value="lyon">Lyon</option>
+                    <option value="marseille">Marseille</option>
+                    <option value="bordeaux">Bordeaux</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="capacity">Capacité</label>
+                <select id="capacity" class="filter-select">
+                    <option value="">Toutes les capacités</option>
+                    <option value="small">1-30 personnes</option>
+                    <option value="medium">31-100 personnes</option>
+                    <option value="large">100+ personnes</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="price">Budget</label>
+                <select id="price" class="filter-select">
+                    <option value="">Tous les budgets</option>
+                    <option value="low">Moins de 150€</option>
+                    <option value="medium">150€ - 300€</option>
+                    <option value="high">Plus de 300€</option>
+                </select>
+            </div>
+            <button class="btn btn-primary">Rechercher</button>
+        </div>
+    </div>
+</section>
+
+<!-- Venues Grid -->
+<section class="venues-listing">
+    <div class="container">
+        <div class="venues-header flex justify-between items-center mb-lg">
+            <p class="venues-count">12 lieux trouvés</p>
+            <div class="sort-options flex items-center gap-sm">
+                <select class="sort-select">
+                    <option value="name">Trier par nom</option>
+                    <option value="price">Trier par prix</option>
+                    <option value="capacity">Trier par capacité</option>
+                </select>
+            </div>
+        </div>
+
+
+        {% include 'place-grid.html.twig' %}
+
+        <!-- Pagination -->
+        <div class="pagination flex justify-center items-center gap-md">
+            <button class="btn btn-outline" disabled>Précédent</button>
+            <span class="pagination-info">Page 1 sur 2</span>
+            <button class="btn btn-outline">Suivant</button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -2,26 +2,39 @@
 
 namespace App\Controller;
 
+use App\Repository\PlaceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\PlaceRepository;
 
 final class PlaceController extends AbstractController
 {
-    #[Route('/place/{id}}', name: 'app_place')]
-    public function show(string $id, PlaceRepository $placeRepository): Response
-    {
-        $place = $placeRepository->find($id);
 
-        if ($place === null) {
+    #[Route('/Place/List/', name: 'app_place_list_show')]
+    public function showList(?int $page,PlaceRepository $placeRepository): Response
+    {
+        if (empty($page)){
+            $page = 1;
+        }
+
+        return $this->render('lieux/lieux.html.twig', [
+            'places' => $placeRepository->findAll(),
+            'id' => $page,
+        ]);
+    }
+
+    #[Route('/place/{slug}', name: 'app_place_show')]
+    public function show(string $slug, PlaceRepository $placeRepository): Response
+    {
+        $place = $placeRepository->findWithEquipments($slug);
+
+        if (!$place) {
             throw $this->createNotFoundException('Place not found');
         }
 
         return $this->render('place/place.html.twig', [
-            'controller_name' => 'PlaceController',
-            'id' => $id,
-            'place' => $place
+            'place' => $place,
         ]);
     }
+
 }

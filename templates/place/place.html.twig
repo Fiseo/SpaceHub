@@ -1,19 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{ parent() }} - {{ place.name }}
+{% endblock %}
+
 {% block body %}
     <!-- Venue Hero -->
     <section class="venue-hero">
         <div class="container">
             <div class="venue-hero-content">
                 <nav class="breadcrumb mb-sm">
-                    <a href="index.html">Accueil</a> >
+                    <a href="{{ path('app_home') }}">Accueil</a> >
                     <a href="venues.html">Lieux</a> >
-                    <span>Salle Horizon</span>
+                    <span>{{ place.name }}</span>
                 </nav>
                 <h1 class="venue-title mb-sm">{{ place.name }}</h1>
                 <div class="venue-meta flex items-center gap-md mb-md flex-wrap">
                     <span class="venue-location">📍 {{ place.address }}</span>
-                    <span class="venue-capacity">👥 {{ place.capacity }}</span>
+                    <span class="venue-capacity">👥 Jusqu'à {{ place.capacity }} personnes</span>
                     <div class="venue-rating">
                         <span class="stars">⭐⭐⭐⭐⭐</span>
                         <span class="rating-text">(4.8 - 24 avis)</span>
@@ -47,19 +51,19 @@
                 <div class="venue-info">
                     <div class="info-section mb-xl">
                         <h2 class="section-title mb-md">Description</h2>
-                        <p class="mb-md">
-                            {{ place.description }}
-                        </p>
+                        {{ place.description }}
                     </div>
 
                     <div class="info-section mb-xl">
                         <h2 class="section-title mb-md">Équipements inclus</h2>
                         <div class="equipment-grid">
-                            {% for equipement in place.equipements %}
-                            <div class="equipment-item flex items-center gap-sm">
-                                <span class="equipment-icon">{{ equipement.icon}}️</span>
-                                <span>{{ equipement.name }}</span>
-                            </div>
+                            {% for equipment in place.equipments %}
+                                <div class="equipment-item flex items-center gap-sm">
+                                    <span class="equipment-icon">{{ equipment.icon }}</span>
+                                    <span>{{ equipment.name }}</span>
+                                </div>
+                            {% else %}
+                                <p>Aucun équipement</p>
                             {% endfor %}
                         </div>
                     </div>

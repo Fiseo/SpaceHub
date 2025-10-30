@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Place
 {
     #[ORM\Id]
@@ -25,18 +27,28 @@ class Place
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     /**
-     * @var Collection<int, Equipement>
+     * @var Collection<int, Equipment>
      */
-    #[ORM\ManyToMany(targetEntity: Equipement::class, inversedBy: 'places')]
-    private Collection $equipements;
+    #[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: 'places')]
+    private Collection $equipments;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated_at = null;
+
+    #[ORM\Column(length: 128, unique: true)]
+    #[Gedmo\Slug(fields: ['name'])]
+    private ?string $slug = null;
 
     public function __construct()
     {
-        $this->equipements = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,7 +97,7 @@ class Place
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
@@ -93,25 +105,75 @@ class Place
     }
 
     /**
-     * @return Collection<int, Equipement>
+     * @return Equipment[]
      */
-    public function getEquipements(): Collection
+    public function getEquipments(): Collection
     {
-        return $this->equipements;
+        return $this->equipments;
     }
 
-    public function addEquipement(Equipement $equipement): static
+    public function addEquipment(Equipment $equipment): static
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements->add($equipement);
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments->add($equipment);
         }
 
         return $this;
     }
 
-    public function removeEquipement(Equipement $equipement): static
+    public function removeEquipment(Equipment $equipment): static
     {
-        $this->equipements->removeElement($equipement);
+        $this->equipments->removeElement($equipment);
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function prePersist(): void
+    {
+        if ($this->created_at == null) {
+            $this->setCreatedAt(new \DateTimeImmutable());
+        }
+    }
+
+    #[ORM\PreUpdate]
+    public function preUpdate(): void
+    {
+        $this->setUpdatedAt(new \DateTimeImmutable());
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
