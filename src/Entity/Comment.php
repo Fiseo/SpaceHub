@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Comment
 {
     #[ORM\Id]
@@ -25,6 +26,12 @@ class Comment
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $CreationDate = null;
+
+    #[ORM\PrePersist]
+    public function setCreationDateValue(): void
+    {
+        $this->CreationDate = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
