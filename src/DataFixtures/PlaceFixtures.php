@@ -25,6 +25,8 @@ class PlaceFixtures extends Fixture
         $iia->AddEquipment($this->getReference('Equipment_pierre', $class));
         $iia->AddEquipment($this->getReference('Equipment_bruit', $class));
 
+        $this->addReference('iia', $iia);
+
         $manager->persist($iia);
 
         $castle = new Place();
@@ -35,6 +37,8 @@ class PlaceFixtures extends Fixture
         $castle->setDescription('Le Château de Laval est un monument historique situé au cœur de la ville de Laval, offrant une vue imprenable sur la Mayenne.');
 
         $castle->AddEquipment($this->getReference('Equipment_chauffage', $class));
+
+        $this->addReference('castle', $castle);
 
         $manager->persist($castle);
 
@@ -48,6 +52,8 @@ class PlaceFixtures extends Fixture
         $stade->AddEquipment($this->getReference('Equipment_parking', $class));
         $stade->AddEquipment($this->getReference('Equipment_animaux', $class));
         $stade->AddEquipment($this->getReference('Equipment_handicap', $class));
+
+        $this->addReference('stade', $stade);
 
         $manager->persist($stade);
 
@@ -65,6 +71,8 @@ class PlaceFixtures extends Fixture
         $espace_mayenne->AddEquipment($this->getReference('Equipment_handicap', $class));
         $espace_mayenne->AddEquipment($this->getReference('Equipment_chauffage', $class));
         $espace_mayenne->AddEquipment($this->getReference('Equipment_bruit', $class));
+
+        $this->addReference('espace_mayenne', $espace_mayenne);
 
         $manager->persist($espace_mayenne);
 

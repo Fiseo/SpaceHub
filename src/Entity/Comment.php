@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -19,6 +20,11 @@ class Comment
     private ?string $Name = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        notInRangeMessage: 'La note doit avoir comme valeur minimum {{ min }} et comme maximum {{ max }}.',
+        min: 1,
+        max: 100
+    )]
     private ?int $Value = null;
 
     #[ORM\Column(type: Types::TEXT)]
