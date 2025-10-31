@@ -27,6 +27,10 @@ class Comment
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $CreationDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Place $Place = null;
+
     #[ORM\PrePersist]
     public function setCreationDateValue(): void
     {
@@ -82,6 +86,18 @@ class Comment
     public function setCreationDate(\DateTimeImmutable $CreationDate): static
     {
         $this->CreationDate = $CreationDate;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->Place;
+    }
+
+    public function setPlace(?Place $Place): static
+    {
+        $this->Place = $Place;
 
         return $this;
     }
