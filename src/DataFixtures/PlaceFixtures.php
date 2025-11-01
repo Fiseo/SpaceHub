@@ -5,13 +5,15 @@ namespace App\DataFixtures;
 use App\Entity\Place;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class PlaceFixtures extends Fixture
+class PlaceFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         $class = \App\Entity\Equipment::class;
 
+        //region IIA
         $iia = new Place();
         $iia->setName('Institut d\'Informatique Appliquée');
         $iia->setAddress('5 boulevard de l\'Industrie, 53940 Saint-Berthevin');
@@ -28,7 +30,9 @@ class PlaceFixtures extends Fixture
         $this->addReference('iia', $iia);
 
         $manager->persist($iia);
+        //endregion
 
+        //region Castle
         $castle = new Place();
         $castle->setName('Château de Laval');
         $castle->setAddress('1 Rue du Château, 53000 Laval');
@@ -41,7 +45,9 @@ class PlaceFixtures extends Fixture
         $this->addReference('castle', $castle);
 
         $manager->persist($castle);
+        //endregion
 
+        //region Stade
         $stade = new Place();
         $stade->setName('Stade Francis Le Basser');
         $stade->setAddress('Avenue Robert Buron, 53000 Laval');
@@ -56,7 +62,9 @@ class PlaceFixtures extends Fixture
         $this->addReference('stade', $stade);
 
         $manager->persist($stade);
+        //endregion
 
+        //region Espace Mayenne
         $espace_mayenne = new Place();
         $espace_mayenne->setName('Espace Mayenne');
         $espace_mayenne->setAddress('2 Rue Joséphine Baker, 53000 Laval');
@@ -75,7 +83,15 @@ class PlaceFixtures extends Fixture
         $this->addReference('espace_mayenne', $espace_mayenne);
 
         $manager->persist($espace_mayenne);
+        //endregion
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            EquipmentFixtures::class,
+        ];
     }
 }

@@ -84,27 +84,18 @@
                     <div class="info-section">
                         <h2 class="section-title mb-md">Avis clients</h2>
                         <div class="reviews">
+                            {% for comment in place.comments %}
                             <div class="review-item mb-md">
                                 <div class="review-header flex justify-between items-center mb-sm">
                                     <div class="reviewer-info">
-                                        <span class="reviewer-name">Marie L.</span>
-                                        <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                                        <span class="reviewer-name">{{ comment.Name }}</span>
+                                        <span class="review-stars">{{ comment.Value }}/100</span>
                                     </div>
-                                    <span class="review-date">Il y a 2 semaines</span>
+                                    <span class="review-date">{{ comment.CreationDate }}</span>
                                 </div>
-                                <p>"Excellente salle pour notre séminaire annuel. Équipements de qualité et service irréprochable."</p>
+                                <p>{{ comment.Comment }}</p>
                             </div>
-
-                            <div class="review-item mb-md">
-                                <div class="review-header flex justify-between items-center mb-sm">
-                                    <div class="reviewer-info">
-                                        <span class="reviewer-name">Jean-Pierre M.</span>
-                                        <span class="review-stars">⭐⭐⭐⭐⭐</span>
-                                    </div>
-                                    <span class="review-date">Il y a 1 mois</span>
-                                </div>
-                                <p>"Très bien situé, facile d'accès. La salle est moderne et parfaitement équipée."</p>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

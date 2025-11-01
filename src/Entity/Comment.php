@@ -84,9 +84,9 @@ class Comment
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeImmutable
+    public function getCreationDate(): ?string
     {
-        return $this->CreationDate;
+        return $this->CreationDate->format("d/m/Y");
     }
 
     public function setCreationDate(\DateTimeImmutable $CreationDate): static
