@@ -53,6 +53,7 @@ class Place
     private Collection $comments;
 
     private float $averageRating;
+    private int $numberComments;
 
     public function __construct()
     {
@@ -61,11 +62,21 @@ class Place
     }
 
     public function load():void {
-        $this->averageRating = PlaceRepository::class->getAverage($this->id);
+        $this->numberComments = array_key_last($this->comments->toArray()) + 1;
+        $value = 0;
+        foreach ($this->comments as $comment) {
+            $value += $comment->getValue();
+        }
+        $this->averageRating = $value / $this->numberComments;
     }
     public function getAverageRating(): float
     {
         return $this->averageRating;
+    }
+
+    public function getNumberComments(): float
+    {
+        return $this->numberComments;
     }
 
     public function getId(): ?int
