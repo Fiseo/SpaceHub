@@ -32,6 +32,7 @@ final class PlaceController extends AbstractController
             throw $this->createNotFoundException('Place not found');
         }
 
+        $place->load();
         return $this->render('place/place.html.twig', [
             'place' => $place,
         ]);

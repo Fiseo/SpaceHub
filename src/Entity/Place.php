@@ -52,10 +52,20 @@ class Place
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'Place', orphanRemoval: true)]
     private Collection $comments;
 
+    private float $averageRating;
+
     public function __construct()
     {
         $this->equipments = new ArrayCollection();
         $this->comments = new ArrayCollection();
+    }
+
+    public function load():void {
+        $this->averageRating = PlaceRepository::class->getAverage($this->id);
+    }
+    public function getAverageRating(): float
+    {
+        return $this->averageRating;
     }
 
     public function getId(): ?int

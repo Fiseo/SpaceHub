@@ -27,6 +27,25 @@ class PlaceRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    public function getAverage(int $id): float
+    {
+        $entityManager = $this->getEntityManager();
+
+        $dql = '
+        SELECT AVG(c.Value)
+        FROM App\Entity\Place p
+        INNER JOIN p.comments c
+        WHERE p.id = :id
+    ';
+
+        $query = $entityManager->createQuery($dql)
+            ->setParameter('id', $id);
+
+        $result = $query->getSingleScalarResult();
+
+        return $result !== null ? (float) $result : 0.0;
+    }
+
     //    /**
     //     * @return Place[] Returns an array of Place objects
     //     */
