@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle location{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>Créer une nouvelle location</h1>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.capacity) }}
+        {{ form_row(form.address) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.equipments) }}
+        <button type="submit">Ajouter</button>
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

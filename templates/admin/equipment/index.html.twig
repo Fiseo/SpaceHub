@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des équipements{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>Liste des équipements</h1>
+
+        <a href="{{ path('app_admin_equipment_new') }}" class="btn btn-primary">Ajouter</a>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Icone</th>
+                <th>Nombre de lieux</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for equipment in equipments %}
+                <tr>
+                    <td>{{ equipment.name }}</td>
+                    <td>{{ equipment.icon }}</td>
+                    <td>{{ equipment.places|length }}</td>
+                    <td>
+                        <a href="{{ path('app_admin_equipment_edit', {'id': equipment.id}) }}" class="btn btn-primary">
+                            Modifier
+                        </a>
+                        <a href="{{ path('app_admin_equipment_delete', {'id': equipment.id}) }}" class="btn btn-outline">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

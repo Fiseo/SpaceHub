@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un équipement{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Modifier un équipement</h1>
+
+        {% include 'admin/equipment/_form.html.twig' with {'button_label': 'Modifier'} %}
+
+    </div>
+
+{% endblock %}

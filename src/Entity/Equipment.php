@@ -6,6 +6,7 @@ use App\Repository\EquipmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 class Equipment
@@ -16,9 +17,10 @@ class Equipment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez saisir le nom de l\'équipement')]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $icon = null;
 
     /**
@@ -54,7 +56,7 @@ class Equipment
         return $this->icon;
     }
 
-    public function setIcon(string $icon): static
+    public function setIcon(?string $icon): static
     {
         $this->icon = $icon;
 
