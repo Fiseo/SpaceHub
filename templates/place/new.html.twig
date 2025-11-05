@@ -8,15 +8,7 @@
 
         <h1>Créer une nouvelle location</h1>
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.capacity) }}
-        {{ form_row(form.address) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.equipments) }}
-        <button type="submit">Ajouter</button>
-        {{ form_end(form) }}
+        {% include 'place/_form.html.twig' with {'button_label': 'Ajouter'} %}
 
     </div>
 

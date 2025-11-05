@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Equipment;
 use App\Entity\Place;
+use App\Form\EquipmentType;
 use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,6 +47,25 @@ final class PlaceController extends AbstractController
         }
 
         return $this->render('place/new.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/edit/{id}', name: 'app_place_edit')]
+    public function edit(Place $place, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(PlaceType::class, $place);
+
+        // Gérer l'envoi du formulaire
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($place);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_place_list_show');
+        }
+
+        return $this->render('place/edit.html.twig', [
             'form' => $form
         ]);
     }

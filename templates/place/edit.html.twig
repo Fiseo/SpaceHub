@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une location{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>Modifier une location</h1>
+
+        {% include 'place/_form.html.twig' with {'button_label': 'Modifier'} %}
+
+    </div>
+
+{% endblock %}
